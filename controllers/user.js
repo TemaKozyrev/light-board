@@ -4,27 +4,33 @@ var passport = require('passport');
 var User = require('../models/user');
 var verifyToken = require('../middleware/verifyToken');
 var router = express.Router();
+multer = require('multer');
+
+var upload = multer({
+    dest: __dirname + '/../public/uploads/'
+});
 
 router.get('/register', function (req, res) {
     res.render('registration')
 });
 
-router.post('/register', function (req, res) {
+router.post('/register', upload.single('avatar'), function (req, res) {
     var user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        avatarUrl: req.file.filename
     });
 
     user.save(function (err) {
         if (err) {
-            return res.send(err);
+            return res.redirect('/account/register', {err: err});
         } else {
             verifyToken.createVerificationToken(user, req)
         };
 
         passport.authenticate('local')(req, res, function () {
-            res.send(req.user);
+            res.redirect('/');
         });
     })
 });

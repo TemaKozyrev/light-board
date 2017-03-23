@@ -32,6 +32,9 @@ userSchema = new Schema({   //TODO extend(check) userSchema
         required: true,
         default: Date.now
     },
+    avatarUrl: {
+        type: String
+    },
     offer: [offerSchema]
 });
 

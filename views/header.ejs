@@ -14,7 +14,8 @@
 
         <% if (user) { %>
         <ul class="nav navbar-nav navbar-right">
-            <li id="username"><a href="#"><%= user.username %></a></li>
+            <li id="username"><a href="/account/profile"><%= user.username %></a></li>
+
             <li>
                 <form class="navbar-form" action="/account/logout" method="get">
                     <button type="submit" class="btn btn-primary">Logout</button>
