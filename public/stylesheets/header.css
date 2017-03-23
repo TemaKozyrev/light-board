@@ -1,0 +1,14 @@
+.navbar {
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    width: 100%;
+}
+
+.navbar-right {
+    margin-right: 0;
+}
+
+#username {
+    font-size: large;
+}
