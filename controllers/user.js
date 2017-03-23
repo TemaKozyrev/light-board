@@ -5,6 +5,7 @@ var User = require('../models/user');
 var verifyToken = require('../middleware/verifyToken');
 var router = express.Router();
 multer = require('multer');
+var _ = require('lodash');
 
 var upload = multer({
     dest: __dirname + '/../public/uploads/'
@@ -70,9 +71,9 @@ router.post('/changepass', function (req, res) {
                 if (isMatch) {
                     user.password = req.body.newpass;
                     user.save();
-                    res.send("password changed");
+                    res.redirect('/account/profile/?valid=' + true)
                 } else {
-                    res.send("incorrect old passowrd");
+                    res.redirect('/account/profile/?valid=' + false)
                 }
             })
         });
@@ -85,6 +86,22 @@ router.get('/info', function (req, res) {
     } else {
         res.send('not auth');
     }
-})
+});
+
+router.get('/profile', function (req, res) {
+    if (req.isAuthenticated()) {
+        if (_.isEmpty(req.query) == false) {
+            if (req.query.valid == 'true') {
+                res.render('profile', {valid: true});
+            } else if (req.query.valid == 'false') {
+                res.render('profile', {valid: false});
+            }
+        } else {
+            res.render('profile', {valid: null});
+        }
+    } else {
+        res.redirect('/account/register')
+    }
+});
 
 module.exports = router;

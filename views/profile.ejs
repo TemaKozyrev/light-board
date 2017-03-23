@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include head.ejs %>
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+</head>
+<body>
+
+<header>
+    <% include header.ejs %>
+</header>
+
+<main>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-4">
+                    <h1><%= user.username %></h1>
+                    <p><%= user.email %></p>
+                    <p><img class="img-thumbnail" src="/uploads/<%= user.avatarUrl %>"></p>
+                    <p>Change password:</p>
+
+                    <form action="/account/changepass" method="post">
+                        <div class="form-group">
+                            <p><input type="password" class="form-control" placeholder="New password" name="newpass"></p>
+                            <p><input type="password" class="form-control" placeholder="Old password" name="oldpass"></p>
+                        </div>
+                        <p><button type="submit" class="btn btn-primary">Change password</button></p>
+                    </form>
+
+                    <p>
+                        <% if (valid != null) { %>
+                            <% if (valid == true) { %>
+                                <div class="alert alert-success" role="alert">Password changed</div>
+                            <% } else if (valid == false) { %>
+                                <div class="alert alert-danger" role="alert">Incorrect old password</div>
+                            <% } %>
+                        <% } %>
+                    </p>
+                </div>
+                <div class="col-md-8">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+</body>
+</html>
