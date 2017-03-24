@@ -11,11 +11,28 @@
 
 <main>
     <div class="container">
-        <div class="jumbotron">
-            <h1>This is great</h1>
-            <p>Welcome to templating using EJS</p>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="side-menu">
+                    <ul class="nav nav-pills nav-stacked">
+                        <% cat.forEach(function (item) { %>
+                            <li role="presentation"><a href="/board/<%=item.shortName%>"><%=item.name%></a></li>
+                        <%})%>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="main-content">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 
 </main>
 

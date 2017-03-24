@@ -34,12 +34,12 @@
 
                     <p>
                         <% if (valid != null) { %>
-                            <% if (valid == true) { %>
-                                <div class="alert alert-success" role="alert">Password changed</div>
-                            <% } else if (valid == false) { %>
-                                <div class="alert alert-danger" role="alert">Incorrect old password</div>
-                            <% } %>
-                        <% } %>
+                        <% if (valid == true) { %>
+                    <div class="alert alert-success" role="alert">Password changed</div>
+                    <% } else if (valid == false) { %>
+                    <div class="alert alert-danger" role="alert">Incorrect old password</div>
+                    <% } %>
+                    <% } %>
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@
                             <label for="SelectCategory">Select category:</label>
                             <select class="form-control" id="SelectCategory" name="catname">
                                 <% cat.forEach(function (item) { %>
-                                    <option value="<%= item.name %>"><%= item.name %></option>
+                                <option value="<%= item.name %>"><%= item.name %></option>
                                 <% }) %>
                             </select>
                         </div>
@@ -63,12 +63,14 @@
 
                         <div class="form-group">
                             <label for="InputShortDesc">Short description:</label>
-                            <input class="form-control" id="InputShortDesc" placeholder="Short description" name="sdesc">
+                            <input class="form-control" id="InputShortDesc" placeholder="Short description"
+                                   name="sdesc" maxlength="250">
                         </div>
 
                         <div class="form-group">
                             <label for="InputtDesc">Description:</label>
-                            <textarea class="form-control" id="InputtDesc" rows="5" placeholder="Description" name="desc"></textarea>
+                            <textarea class="form-control" id="InputtDesc" rows="5" placeholder="Description"
+                                      name="desc"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -81,30 +83,26 @@
                     </form>
                 </div>
             </div>
-            <h1>Your active offers:</h1>
-
+        </div>
+    </div>
+    <div class="container">
+        <h1>Your active offers:</h1>
+        <div class="row">
             <% for (var i = 0; i < user.offers.length; i++) { %>
-            <p>
-                <div class="panel panel-primary">
-                    <div class="panel-heading"><%= user.offers[i].title %></div>
-                    <div class="panel-body container">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3>Short description</h3>
-                                <p><%= user.offers[i].ShortDescription%></p>
-                                <h3>Description</h3>
-                                <p><%= user.offers[i].description%></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><img class="offer-img" src="/uploads/<%= user.offers[i].imgUrl %>"></p>
-                            </div>
-                        </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="/uploads/<%= user.offers[i].imgUrl %>">
+                    <div class="caption">
+                        <h3><%= user.offers[i].title %></h3>
+                        <p><%= user.offers[i].ShortDescription %></p>
+                        <p><a href="#" class="btn btn-danger" role="button">Delete</a></p>
                     </div>
                 </div>
-            </p>
+            </div>
             <% } %>
         </div>
     </div>
+
 
 </main>
 
