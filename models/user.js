@@ -35,7 +35,9 @@ userSchema = new Schema({   //TODO extend(check) userSchema
     avatarUrl: {
         type: String
     },
-    offers: [offerSchema]
+    offers: [{
+        _offerId: {type: Schema.Types.ObjectId, required: true, ref: 'Offer'}
+    }]
 });
 
 userSchema.pre('save', function (next) {

@@ -88,18 +88,18 @@
     <div class="container">
         <h1>Your active offers:</h1>
         <div class="row">
-            <% for (var i = 0; i < user.offers.length; i++) { %>
+            <% offers.forEach(function (item) {  %>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="/uploads/<%= user.offers[i].imgUrl %>">
+                    <img src="/uploads/<%= item.imgUrl %>">
                     <div class="caption">
-                        <h3><%= user.offers[i].title %></h3>
-                        <p><%= user.offers[i].ShortDescription %></p>
-                        <p><a href="#" class="btn btn-danger" role="button">Delete</a></p>
+                        <h3><%= item.title %></h3>
+                        <p><%= item.ShortDescription %></p>
+                        <p><a href="/offer/delete/?offer_id=<%=item._id%>" class="btn btn-danger" role="button">Delete</a></p>
                     </div>
                 </div>
             </div>
-            <% } %>
+            <% }) %>
         </div>
     </div>
 

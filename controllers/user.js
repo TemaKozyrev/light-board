@@ -1,7 +1,7 @@
-// Load required packages
 var express = require('express');
 var passport = require('passport');
 var User = require('../models/user');
+var Offer = require('../models/offer').Offer;
 var Category = require('../models/category');
 var verifyToken = require('../middleware/verifyToken');
 var router = express.Router();
@@ -45,7 +45,7 @@ router.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (!user) {
             return res.redirect('/')
-        };
+        }
         req.logIn(user, function (err) {
             return res.redirect('/')
         });
@@ -78,7 +78,7 @@ router.post('/changepass', function (req, res) {
                 }
             })
         });
-    };
+    }
 });
 
 router.get('/info', function (req, res) {
@@ -94,18 +94,17 @@ router.get('/profile', function (req, res) {
         var valid;
         if (_.isEmpty(req.query) == false) {
             if (req.query.valid == 'true') {
-                // res.render('profile', {valid: true});
                 valid = true;
             } else if (req.query.valid == 'false') {
-                // res.render('profile', {valid: false});
                 valid = false;
             }
         } else {
-            // res.render('profile', {valid: null});
             valid = null;
-        };
-        Category.find().select('name').exec(function (err, doc) {
-            res.render('profile', {valid: valid, cat: doc});
+        }
+        Category.find().select('name').exec(function (err, category) {
+            Offer.find({_userId: req.user._id}).exec(function (err, offers) {
+                res.render('profile', {valid: valid, cat: category, offers: offers});
+            });
         });
     } else {
         res.redirect('/account/register')

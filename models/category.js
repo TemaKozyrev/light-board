@@ -9,7 +9,9 @@ var categorySchema = new Schema({
         required: true
     },
     shortName: String,
-    offers: [offerSchema]
+    offers: [{
+        _offerId: {type: Schema.Types.ObjectId, required: true, ref: 'Offer'}
+    }]
 });
 
 categorySchema.pre('save', function (next) {
