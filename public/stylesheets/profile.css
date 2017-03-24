@@ -1,3 +1,8 @@
 .img-thumbnail {
     width: 140px;
 }
+
+.offer-img {
+    max-width: 100%;
+    height: auto;
+}

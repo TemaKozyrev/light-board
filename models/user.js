@@ -35,7 +35,7 @@ userSchema = new Schema({   //TODO extend(check) userSchema
     avatarUrl: {
         type: String
     },
-    offer: [offerSchema]
+    offers: [offerSchema]
 });
 
 userSchema.pre('save', function (next) {

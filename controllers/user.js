@@ -2,6 +2,7 @@
 var express = require('express');
 var passport = require('passport');
 var User = require('../models/user');
+var Category = require('../models/category');
 var verifyToken = require('../middleware/verifyToken');
 var router = express.Router();
 multer = require('multer');
@@ -25,7 +26,7 @@ router.post('/register', upload.single('avatar'), function (req, res) {
 
     user.save(function (err) {
         if (err) {
-            return res.redirect('/account/register', {err: err});
+            return res.redirect('/account/register');
         } else {
             verifyToken.createVerificationToken(user, req)
         };
@@ -90,15 +91,22 @@ router.get('/info', function (req, res) {
 
 router.get('/profile', function (req, res) {
     if (req.isAuthenticated()) {
+        var valid;
         if (_.isEmpty(req.query) == false) {
             if (req.query.valid == 'true') {
-                res.render('profile', {valid: true});
+                // res.render('profile', {valid: true});
+                valid = true;
             } else if (req.query.valid == 'false') {
-                res.render('profile', {valid: false});
+                // res.render('profile', {valid: false});
+                valid = false;
             }
         } else {
-            res.render('profile', {valid: null});
-        }
+            // res.render('profile', {valid: null});
+            valid = null;
+        };
+        Category.find().select('name').exec(function (err, doc) {
+            res.render('profile', {valid: valid, cat: doc});
+        });
     } else {
         res.redirect('/account/register')
     }

@@ -8,6 +8,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/account', require('./user'));
-
+router.use('/offer', require('./offer'));
 
 module.exports = router;
