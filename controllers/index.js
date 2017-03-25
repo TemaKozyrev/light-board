@@ -11,5 +11,6 @@ router.get('/', function(req, res, next) {
 
 router.use('/account', require('./user'));
 router.use('/offer', require('./offer'));
+router.use('/board', require('./board'));
 
 module.exports = router;

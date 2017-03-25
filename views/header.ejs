@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -17,7 +17,7 @@
             <li id="username"><a href="/account/profile"><%= user.username %></a></li>
 
             <li>
-                <form class="navbar-form" action="/account/logout" method="get">
+                <form class="navbar-form custom-form" action="/account/logout" method="get">
                     <button type="submit" class="btn btn-primary">Logout</button>
                 </form>
             </li>
@@ -26,7 +26,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <form class="navbar-form" action="/account/login" method="post">
+                <form class="navbar-form custom-form" action="/account/login" method="post">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="username" name="username">
                         <input type="password" class="form-control" placeholder="password" name="password">
@@ -35,7 +35,7 @@
                 </form>
             </li>
             <li>
-                <form class="navbar-form" action="/account/register" method="get">
+                <form class="navbar-form custom-form" action="/account/register" method="get">
                     <button type="submit" class="btn btn-primary">SignUp</button>
                 </form>
             </li>

@@ -44,10 +44,10 @@ router.get('/login', function (req, res) {
 router.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (!user) {
-            return res.redirect('/')
+            res.redirect(req.get('referer'));
         }
         req.logIn(user, function (err) {
-            return res.redirect('/')
+            res.redirect(req.get('referer'));
         });
     })(req, res, next);
 });
