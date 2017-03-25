@@ -25,6 +25,11 @@ var offerSchema = new Schema({
         required: true,
         ref: 'Category'
     },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
     imgUrl: String,
     status: Boolean
 });

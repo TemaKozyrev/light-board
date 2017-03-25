@@ -1,11 +1,14 @@
 var express = require('express');
 var Category = require('../models/category');
 var router = express.Router();
+var collectDateSortOffers = require('../middleware/collectOffers').collectDateSortOffers;
 
 /* test router */
 router.get('/', function(req, res, next) {
     Category.find().select('name shortName').exec(function (err, doc) {
-        res.render('index', {cat: doc});
+        collectDateSortOffers(5, function (result) {
+            res.render('index', {cat: doc, offers: result});
+        });
     });
 });
 

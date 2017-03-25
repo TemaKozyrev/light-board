@@ -29,4 +29,31 @@ var collectOffers = function (category, callback) {
     })
 };
 
-module.exports = collectOffers;
+var collectDateSortOffers = function (count, callback) {
+    Offer
+        .find()
+        .limit(count)
+        .sort({createdAt: -1})
+        .exec(function (err, offers) {
+            var newOffers = [];
+            async.forEachOf(offers, function (value, key, callback) {
+                User.findById(value._userId, function (err, user) {
+                    newOffers.push({
+                        title: value.title,
+                        ShortDescription: value.ShortDescription,
+                        description: value.description,
+                        imgUrl: value.imgUrl,
+                        email: user.email
+                    });
+                    callback();
+                })
+            }, function (err) {
+                callback(newOffers)
+            })
+        })
+};
+
+module.exports = {
+    collectOffers: collectOffers,
+    collectDateSortOffers: collectDateSortOffers
+};
