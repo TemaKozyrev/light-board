@@ -1,18 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var Category = require('../models/category');
-var Offer = require('../models/offer').Offer;
+var collectOffers = require('../middleware/collectOffers');
 
 router.get('/:category', function (req, res) {
-    var categoryName = req.params.category;
-    Category.findOne({shortName: categoryName}, function (err, category) {
-        if (category == null)
+    collectOffers(req.params.category, function (result) {
+        if (result == null)
             res.redirect('/');
-        else {
-            Offer.find({_categoryId: category._id}, function (err, offers) {
-                res.render('board', {offers: offers, cat: category})
-            })
-        }
+        else
+            res.render('board', result)
     })
 });
 
