@@ -10,6 +10,11 @@
 </header>
 
 <main>
+    <ol class="breadcrumb">
+        <li><a href="/">main</a></li>
+        <li class="active"><%=cat.name%></li>
+    </ol>
+
     <div class="container jumbotron">
         <div class="row">
             <% offers.forEach(function (item) { %>

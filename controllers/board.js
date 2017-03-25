@@ -10,7 +10,7 @@ router.get('/:category', function (req, res) {
             res.redirect('/');
         else {
             Offer.find({_categoryId: category._id}, function (err, offers) {
-                res.render('board', {offers: offers})
+                res.render('board', {offers: offers, cat: category})
             })
         }
     })
