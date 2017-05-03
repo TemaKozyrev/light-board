@@ -37,7 +37,11 @@ userSchema = new Schema({   //TODO extend(check) userSchema
     },
     offers: [{
         _offerId: {type: Schema.Types.ObjectId, required: true, ref: 'Offer'}
-    }]
+    }],
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 userSchema.pre('save', function (next) {

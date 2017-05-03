@@ -44,43 +44,41 @@
                 </div>
 
                 <div class="col-md-8">
-                    <form action="/offer/create" method="post" enctype="multipart/form-data">
-                        <h1>Create new offer:</h1>
-
-                        <div class="form-group">
-                            <label for="SelectCategory">Select category:</label>
-                            <select class="form-control" id="SelectCategory" name="catname">
-                                <% cat.forEach(function (item) { %>
-                                <option value="<%= item.name %>"><%= item.name %></option>
-                                <% }) %>
-                            </select>
+                    <!--<h2>Chose management option</h2>
+                    <select id="menuSelector" class="form-control">
+                        <option value="1">Create offer</option>
+                        <option value="2">Create category</option>
+                    </select>-->
+                    <% if (user.isAdmin) { %>
+                        <h2>Chose management option</h2>
+                        <select id="menuSelector" class="form-control">
+                            <option value="1">Create offer</option>
+                            <option value="2">Create category</option>
+                        </select>
+                        <div class="adminMenu createMenu1">
+                            <% include create_offer.ejs %>
                         </div>
-
-                        <div class="form-group">
-                            <label for="InputOfferName">Offer name:</label>
-                            <input class="form-control" id="InputOfferName" placeholder="Offer name" name="oname" required>
+                        <div class="adminMenu createMenu2">
+                            <% include create_category.ejs %>
                         </div>
+                    <% } else { %>
+                        <h2>Chose management option</h2>
+                        <select id="menuSelector" class="form-control">
+                            <option value="1">Create offer</option>
+                        </select>
+                        <% include create_offer.ejs %>
+                    <% } %>
 
-                        <div class="form-group">
-                            <label for="InputShortDesc">Short description:</label>
-                            <input class="form-control" id="InputShortDesc" placeholder="Short description"
-                                   name="sdesc" maxlength="250" required>
-                        </div>
+                    <!--<form action="/board/create/category" method="post">-->
+                        <!--<h3>Create new offer:</h3>-->
+                        <!--<input name="name">-->
+                        <!--<input name="shortName">-->
 
-                        <div class="form-group">
-                            <label for="InputtDesc">Description:</label>
-                            <textarea class="form-control" id="InputtDesc" rows="5" placeholder="Description"
-                                      name="desc" required></textarea>
-                        </div>
+                        <!--<button type="submit" class="btn btn-primary">Create</button>-->
 
-                        <div class="form-group">
-                            <label for="InputFile">Upload image</label>
-                            <input type="file" id="InputFile" name="image" required>
-                        </div>
+                    <!--</form>-->
 
-                        <button type="submit" class="btn btn-primary">Create</button>
 
-                    </form>
                 </div>
             </div>
         </div>
@@ -88,14 +86,37 @@
     <div class="container">
         <h1>Your active offers:</h1>
         <div class="row">
-            <% offers.forEach(function (item) {  %>
+            <% offers.forEach(function (item) { %>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <img src="/uploads/<%= item.imgUrl %>">
                     <div class="caption">
                         <h3><%= item.title %></h3>
                         <p><%= item.ShortDescription %></p>
-                        <p><a href="/offer/delete/?offer_id=<%=item._id%>" class="btn btn-danger" role="button">Delete</a></p>
+                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                data-target="#exampleModalLong">
+                            Delete
+                        </button>
+
+                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3>Do you want to delete <i><%= item.title %></i>?</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/offer/delete/?offer_id=<%= item._id %>" class="btn btn-danger"
+                                           role="button">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,6 +127,17 @@
 
 </main>
 
-
+<script>
+    $(document).ready(function(){
+        $(".adminMenu").toggle();
+        $(".createMenu1").toggle();
+        $("#menuSelector").change(function () {
+            $(".adminMenu").toggle(false);
+            var value = $(this).val();
+            var menuClassName = ".createMenu" + value;
+            $(menuClassName).toggle(true);
+        })
+    });
+</script>
 </body>
 </html>

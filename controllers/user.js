@@ -44,7 +44,7 @@ router.get('/login', function (req, res) {
 router.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (!user) {
-            res.redirect(req.get('referer'));
+            return res.redirect(req.get('referer'));
         }
         req.logIn(user, function (err) {
             res.redirect(req.get('referer'));

@@ -1,0 +1,39 @@
+<form action="/offer/create" method="post" enctype="multipart/form-data">
+    <h3>Create new offer:</h3>
+
+
+    <div class="form-group">
+        <label for="SelectCategory">Select category:</label>
+        <select class="form-control" id="SelectCategory" name="catname">
+            <% cat.forEach(function (item) { %>
+            <option value="<%= item.name %>"><%= item.name %></option>
+            <% }) %>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="InputOfferName">Offer name:</label>
+        <input class="form-control" id="InputOfferName" placeholder="Offer name" name="oname"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label for="InputShortDesc">Short description:</label>
+        <input class="form-control" id="InputShortDesc" placeholder="Short description"
+               name="sdesc" maxlength="250" required>
+    </div>
+
+    <div class="form-group">
+        <label for="InputtDesc">Description:</label>
+                            <textarea class="form-control" id="InputtDesc" rows="5" placeholder="Description"
+                                      name="desc" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="InputFile">Upload image</label>
+        <input type="file" id="InputFile" name="image" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+
+</form>
